@@ -1,6 +1,6 @@
 pragma solidity ^0.8.10;
 
-interface DelegationRegistry {
+interface IDelegationRegistry {
     event DelegateForAll(address vault, address delegate, bool value);
     event DelegateForContract(address vault, address delegate, address contract_, bool value);
     event DelegateForToken(address vault, address delegate, address contract_, uint256 tokenId, bool value);
@@ -27,11 +27,20 @@ interface DelegationRegistry {
     }
 
     function checkDelegateForAll(address delegate, address vault) external view returns (bool);
-    function checkDelegateForContract(address delegate, address vault, address contract_)
+    function checkDelegateForContract(
+        address delegate,
+        address vault,
+        address contract_
+    )
         external
         view
         returns (bool);
-    function checkDelegateForToken(address delegate, address vault, address contract_, uint256 tokenId)
+    function checkDelegateForToken(
+        address delegate,
+        address vault,
+        address contract_,
+        uint256 tokenId
+    )
         external
         view
         returns (bool);
@@ -43,11 +52,18 @@ interface DelegationRegistry {
         view
         returns (ContractDelegation[] memory contractDelegations);
     function getDelegatesForAll(address vault) external view returns (address[] memory delegates);
-    function getDelegatesForContract(address vault, address contract_)
+    function getDelegatesForContract(
+        address vault,
+        address contract_
+    )
         external
         view
         returns (address[] memory delegates);
-    function getDelegatesForToken(address vault, address contract_, uint256 tokenId)
+    function getDelegatesForToken(
+        address vault,
+        address contract_,
+        uint256 tokenId
+    )
         external
         view
         returns (address[] memory delegates);
@@ -61,4 +77,3 @@ interface DelegationRegistry {
     function revokeSelf(address vault) external;
     function supportsInterface(bytes4 interfaceId) external view returns (bool);
 }
-

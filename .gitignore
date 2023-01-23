@@ -2,3 +2,5 @@
 out
 cache
 broadcast
+lcov.info
+html

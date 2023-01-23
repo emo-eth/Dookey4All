@@ -52,15 +52,6 @@ contract Dookey4All is ERC721TokenReceiver {
     }
 
     /**
-     * @dev revert if the caller is not the sponsor
-     */
-    function _onlySponsor() internal view {
-        if (msg.sender != sponsor) {
-            revert OnlySponsor();
-        }
-    }
-
-    /**
      * @notice Add the caller as a delegate for this address
      */
     function delegateSelf() public {
@@ -75,12 +66,14 @@ contract Dookey4All is ERC721TokenReceiver {
      * @notice Allows the sponsor to withdraw their sewer pass, which will reset the sponsor and passId.
      */
     function withdrawSewerPass() external {
-        _onlySponsor();
         address _sponsor = sponsor;
+        if (msg.sender != _sponsor) {
+            revert OnlySponsor();
+        }
         uint16 _passId = passId;
-        SEWER_PASS.transferFrom(address(this), _sponsor, _passId);
         sponsor = address(0);
         passId = 0;
+        SEWER_PASS.transferFrom(address(this), _sponsor, _passId);
         emit SponsorshipWithdrawn(_sponsor, _passId);
     }
 

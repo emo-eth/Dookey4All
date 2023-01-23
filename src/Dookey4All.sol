@@ -125,8 +125,8 @@ contract Dookey4All is ERC721TokenReceiver {
         } else {
             // allow rescuing sewer pass tokens, but not the sponsored token
             // sewer pass tokens which are *not* the sponsored token can be transferred using normal transferFrom
-            // but the cononERC721Received will not be invoked to register them as the sponsored token, so they cannot
-            // be withdrawn otherwise
+            // but the onERC721Received callback will not be invoked to register them as the sponsored token, so they
+            // cannot be withdrawn otherwise
             if (tokenAddress == address(SEWER_PASS) && id == passId) {
                 revert CannotRescueSponsoredToken();
             }
